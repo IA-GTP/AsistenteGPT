@@ -1,0 +1,30 @@
+<div class="chat-container">
+  <div class="chat-messages" style="overflow: auto !important;">
+
+    <div class="grid gap-y-2">
+      <!-- Chat messages-->
+      <app-chat-message text="¿Qué deseas comparar?">
+      </app-chat-message>
+
+      @for (message of messages(); track $index) {
+        @if (message.isGpt) {
+          <app-chat-message [text]="message.text">
+          </app-chat-message>
+        } @else {
+          <app-my-message [text]="message.text">
+          </app-my-message>
+        }
+      }
+
+      @if (isLoading()) {
+        <app-typing-loader></app-typing-loader>
+      }
+
+    </div>
+  </div>
+
+    <!-- Messages box-->
+    <app-text-messages-box placeholder="Escribe aquí tu mensaje..." (onMessage)="handleMessage($event)">
+    </app-text-messages-box>
+
+</div>
